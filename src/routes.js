@@ -36,6 +36,7 @@ const Widgets = React.lazy(() => import('./views/Widgets/Widgets'));
 const Users = React.lazy(() => import('./views/Users/Users'));
 const User = React.lazy(() => import('./views/Users/User'));
 const ObligationsViewer = React.lazy(() => import('./views/AllGood/Obligations/ObligationsViewer'));
+const GraphViewer = React.lazy(() => import('./views/AllGood/GraphViewer/GraphViewer'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -80,7 +81,8 @@ const routes = [
   { path: '/charts', name: 'Charts', component: Charts },
   { path: '/users', exact: true,  name: 'Users', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
-  { path: '/obligaciones', exact: true, name: 'Obligations Viewer', component: ObligationsViewer}
+  { path: '/obligaciones', exact: true, name: 'Obligations Viewer', component: ObligationsViewer},
+  { path: '/regulacion', exact: true, name: 'Regulation Viewer', component: GraphViewer}
 ];
 
 export default routes;
