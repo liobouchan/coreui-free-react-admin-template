@@ -52,11 +52,59 @@ class ObligationsViewer extends Component {
     //   totalPaginas: 100,
     //   paginaActal: 1};
     this.state = {
-      obtainedData : [],
+      obligations : [],
       actualPage: '0',
       totalPages: '0',
       items: '0'
     }
+  }
+
+  renderTableData() {
+    return this.state.obligations.map((obligation, index) => {
+      //  const { id, name, age, email } = student //destructuring
+      //  return (
+      //     <tr key={id}>
+      //        <td>{id}</td>
+      //        <td>{name}</td>
+      //        <td>{age}</td>
+      //        <td>{email}</td>
+      //     </tr>
+      //  )
+      let {nombre, descripcion, contenido, titulo, seccion, capitulo, apartado, subApartado } = obligation
+      if(titulo != 'null'){titulo = titulo}else{titulo = " "};
+      if(seccion != 'null'){seccion = seccion}else{seccion = " "};
+      if(capitulo != 'null'){capitulo = capitulo}else{capitulo = " "};
+      if(apartado != 'null'){apartado = apartado}else{apartado = " "};
+      if(subApartado != 'null'){subApartado = subApartado}else{subApartado = " "};
+      // console.log("nombre: ", nombre)
+      // console.log("descripcion: ", descripcion)
+      // console.log("contenido: ", contenido)
+      // console.log("titulo: ", titulo)
+      // console.log("seccion: ", seccion)
+      // console.log("capitulo: ", capitulo)
+      // console.log("apartado: ", apartado)
+      // console.log("subApartado: ", subApartado)
+
+      return(
+        <ListGroupItem  action>
+          <ListGroupItemHeading className="d-flex justify-content-between">
+            <h5>{descripcion}</h5>
+            <h6 className="text-muted">{nombre}</h6>
+          </ListGroupItemHeading>
+          <ListGroupItemText>
+            {contenido}
+            <br></br>
+            <br></br>
+            <br></br>
+            <h6 class="font-weight-light">{titulo}</h6>
+            <h6 class="font-weight-light">{capitulo}</h6>
+            <h6 class="font-weight-light">{seccion}</h6>
+            <h6 class="font-weight-light">{apartado}</h6>
+            <h6 class="font-weight-light">{subApartado}</h6>
+          </ListGroupItemText>
+        </ListGroupItem>
+      )
+    })
   }
 
   loading = () => <div className = "animated fadeIn pt-1 text-center" > Loading... </div>
@@ -64,38 +112,37 @@ class ObligationsViewer extends Component {
   componentWillMount(){
     fetch('http://localhost:8080/obligations?start=0&size=11')
     .then( results => {
-      console.log("results: " , results)
       return results.json();
     }).then( data => {
-      console.log("data: " , data)
-      console.log("data.data: " , data.data)
+      console.log("Obtained REST data: " , data)
+      console.log("Obtained Obligations: " , data.data)
       this.setState({actualPage: data.actualPage})
       this.setState({totalPages: data.totalPages})
       this.setState({items: data.items})
-      let obligations = data.data.map( (obligation) => {
-        console.log("obligation: " , obligation)
-        console.log("obligation.nombre: " , obligation.nombre)
-        return(
-          obligation
-        )
-      })
-      console.log("obligations: ", obligations);
+      this.setState({obligations: data.data})
+      console.log("Estado Actual de State: " , this.state);
       
-      this.setState({obtainedData:obligations})
-      console.log("state", this.state.obtainedData);
-      console.log("state.items", this.state.totalPages);
+      // let obligations = data.data.map( (obligation) => {
+      //   console.log("obligation: " , obligation)
+      //   console.log("obligation.nombre: " , obligation.nombre)
+      //   return(
+      //     obligation
+      //   )
+      // })
+      //console.log("obligations: ", obligations);
+      
+      //this.setState({obligations:obligations})
+      // console.log("state", this.state.obligations);
+      // console.log("state.items", this.state.totalPages);
     })
   }
 
   render() {
     return ( 
       <div className = "animated fadeIn" >
-        {console.log("AQUIIII" , this.state)}
-        {console.log("AQUI OBTAINED DATA" , this.state.obtainedData)}
-        {(this.state.obtainedData).map(item => (
+        {/* {(this.state.obligations).map(item => (
             console.log("ITEM: " , item.nombre)
-          ))}
-        {console.log("AQUI OBTAINED DATA.DATA" , this.state.obtainedData[0])}
+          ))} */}
         <Row className= "mt-3">
           <Col md={12} xl={12} lg={12}>
             <Card>
@@ -139,23 +186,7 @@ class ObligationsViewer extends Component {
                         </CardHeader>
                         <CardBody>
                           <ListGroup>
-                            <ListGroupItem  action>
-                              <ListGroupItemHeading className="d-flex justify-content-between">
-                                {/* <h5>{this.state.data[0].descripcion}</h5> */}
-                                {/* <h6 className="text-muted">{this.state.data[0].articulo}</h6> */}
-                              </ListGroupItemHeading>
-                              <ListGroupItemText>
-                                {/* {this.state.data[0].obligacion} */}
-                                <br></br>
-                                <br></br>
-                                <br></br>
-                                {/* <h6 class="font-weight-light">Título Primero Bis - {this.state.data[0].titulo}</h6> */}
-                                {/* <h6 class="font-weight-light">Capítulo: - {this.state.data[0].capitulo}</h6> */}
-                                {/* <h6 class="font-weight-light">Sección: - {this.state.data[0].seccion}</h6> */}
-                                {/* <h6 class="font-weight-light">Apartado: - {this.state.data[0].apartado}</h6> */}
-                                {/* <h6 class="font-weight-light">SubApartado: - {this.state.data[0].subApartado}</h6> */}
-                              </ListGroupItemText>
-                            </ListGroupItem>
+                            {this.renderTableData()}
                           </ListGroup>
                         </CardBody>
                       </Card>
