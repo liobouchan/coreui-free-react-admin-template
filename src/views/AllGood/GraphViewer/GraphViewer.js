@@ -163,12 +163,12 @@ class GraphViewer extends Component {
                         </Col>
                       </FormGroup>
                     </CardBody>
-                    <CardFooter>
-                      <Button type="reset" color="danger"><i class="fa fa-ban"></i> Limpiar</Button>
-                    </CardFooter>
                   </Collapse>
                 </Card>
               </CardBody>
+              <CardFooter>
+                <Button type="reset" color="danger"><i class="fa fa-ban"></i> Limpiar</Button>
+              </CardFooter>
             </Card>
           </Col>
         </Row>
