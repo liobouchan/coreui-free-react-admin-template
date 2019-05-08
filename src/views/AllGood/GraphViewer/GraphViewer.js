@@ -32,7 +32,7 @@ import {
   Row,
   Table,
 } from 'reactstrap';
-import Graph from './Graph';
+import Grapho from './Grapho';
 
 class GraphViewer extends Component {
   constructor(props) {
@@ -61,7 +61,7 @@ class GraphViewer extends Component {
       <div className = "animated fadeIn">
         <Row className="mt-2">
           <Col md={9} xl={9} lg={9} id="graph-container">
-            <Graph/>
+            <Grapho/>
           </Col>
           <Col md={3} xl={3} lg={3}>
             <div className="border-top border-left border-right pt-1"><center><h5>{this.state.regulation}</h5></center></div>
